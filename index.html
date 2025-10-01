@@ -29,14 +29,14 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
-    <div class="container mx-auto px-4 py-8 max-w-4xl">
+<body class="bg-gray-900 min-h-screen">
+<div class="container mx-auto px-4 py-8 max-w-4xl">
         <!-- Header -->
         <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold text-indigo-600 mb-2">Agenda Mágica do Tempo</h1>
-            <p class="text-gray-600">Veja minha disponibilidade em tempo real</p>
-            <div class="mt-4 p-4 bg-white rounded-lg shadow-sm">
-                <div class="flex justify-center items-center space-x-4">
+            <h1 class="text-4xl font-bold text-indigo-400 mb-2">Agenda Mágica do Tempo</h1>
+            <p class="text-gray-400">Veja minha disponibilidade em tempo real</p>
+            <div class="mt-4 p-4 bg-gray-800 rounded-lg shadow-sm">
+<div class="flex justify-center items-center space-x-4">
                     <div class="text-center">
                         <div class="text-2xl font-bold text-indigo-600" id="current-day">Segunda-feira</div>
                         <div class="text-gray-500" id="current-date">1 de Janeiro de 2023</div>
@@ -50,19 +50,19 @@
         </header>
 
         <!-- Status Bar -->
-        <div class="mb-8 p-4 bg-white rounded-lg shadow-sm">
-            <div class="flex items-center justify-center">
+        <div class="mb-8 p-4 bg-gray-800 rounded-lg shadow-sm">
+<div class="flex items-center justify-center">
                 <div class="mr-4">
-                    <div class="text-sm text-gray-500">Status Atual</div>
-                    <div class="text-xl font-bold" id="current-status">Carregando...</div>
+                    <div class="text-sm text-gray-400">Status Atual</div>
+<div class="text-xl font-bold" id="current-status">Carregando...</div>
                 </div>
                 <div id="status-indicator" class="h-4 w-4 rounded-full bg-gray-300"></div>
             </div>
         </div>
 
         <!-- Schedule Table -->
-        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-            <div class="grid grid-cols-1 divide-y">
+        <div class="bg-gray-800 rounded-lg shadow-sm overflow-hidden">
+<div class="grid grid-cols-1 divide-y">
                 <!-- Schedule items will be inserted here by JavaScript -->
             </div>
         </div>
@@ -301,11 +301,39 @@
                 }
             }
         }
+        // Dark mode toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('bg-gray-900');
+            document.body.classList.toggle('bg-gray-50');
+            
+            const elements = document.querySelectorAll('.bg-white, .text-gray-600, .text-gray-500');
+            elements.forEach(el => {
+                if (el.classList.contains('bg-white')) {
+                    el.classList.toggle('bg-white');
+                    el.classList.toggle('bg-gray-800');
+                }
+                if (el.classList.contains('text-gray-600')) {
+                    el.classList.toggle('text-gray-600');
+                    el.classList.toggle('text-gray-400');
+                }
+                if (el.classList.contains('text-gray-500')) {
+                    el.classList.toggle('text-gray-500');
+                    el.classList.toggle('text-gray-400');
+                }
+            });
+        }
 
+        // Add dark mode toggle button
+        const darkModeButton = document.createElement('button');
+        darkModeButton.className = 'fixed bottom-4 right-4 bg-gray-800 text-white p-3 rounded-full shadow-lg';
+        darkModeButton.innerHTML = '<i data-feather="moon"></i>';
+        darkModeButton.onclick = toggleDarkMode;
+        document.body.appendChild(darkModeButton);
+        
         // Initialize and update every minute
         feather.replace();
         updateDateTime();
         setInterval(updateDateTime, 60000);
-    </script>
+</script>
 </body>
 </html>
