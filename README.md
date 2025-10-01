@@ -5,6 +5,10 @@ O projeto exibe os horários em que estou **ocupado** ou **disponível**, de for
 
 ---
 
+## Acesse em https://firegodis.github.io/Relogio_da_disponibilidade/index.html
+
+---
+
 ## 🚀 Funcionalidades  
 
 - 📅 Seleção de dias da semana para visualizar a agenda.  
@@ -21,7 +25,7 @@ O projeto exibe os horários em que estou **ocupado** ou **disponível**, de for
 
 > Exemplo de como o site se parece em funcionamento:
 
-![Preview do site]()
+![Preview do site](./tela_site_relogio.png)
 
 ---
 
