@@ -35,6 +35,18 @@
         <header class="mb-8 text-center">
             <h1 class="text-4xl font-bold text-indigo-400 mb-2">Agenda Mágica do Tempo</h1>
             <p class="text-gray-400">Veja minha disponibilidade em tempo real</p>
+            
+            <!-- Day selection buttons -->
+            <div class="flex justify-center space-x-2 my-4">
+                <button onclick="showDay('Domingo')" class="px-3 py-1 bg-gray-700 text-gray-300 rounded hover:bg-indigo-600 transition">Dom</button>
+                <button onclick="showDay('Segunda-feira')" class="px-3 py-1 bg-gray-700 text-gray-300 rounded hover:bg-indigo-600 transition">Seg</button>
+                <button onclick="showDay('Terça-feira')" class="px-3 py-1 bg-gray-700 text-gray-300 rounded hover:bg-indigo-600 transition">Ter</button>
+                <button onclick="showDay('Quarta-feira')" class="px-3 py-1 bg-gray-700 text-gray-300 rounded hover:bg-indigo-600 transition">Qua</button>
+                <button onclick="showDay('Quinta-feira')" class="px-3 py-1 bg-gray-700 text-gray-300 rounded hover:bg-indigo-600 transition">Qui</button>
+                <button onclick="showDay('Sexta-feira')" class="px-3 py-1 bg-gray-700 text-gray-300 rounded hover:bg-indigo-600 transition">Sex</button>
+                <button onclick="showDay('Sábado')" class="px-3 py-1 bg-gray-700 text-gray-300 rounded hover:bg-indigo-600 transition">Sáb</button>
+            </div>
+            
             <div class="mt-4 p-4 bg-gray-800 rounded-lg shadow-sm">
 <div class="flex justify-center items-center space-x-4">
                     <div class="text-center">
@@ -209,10 +221,37 @@
                 indicatorElement.className = 'h-4 w-4 rounded-full bg-green-500';
             }
         }
-
-        // Update the schedule display for the current day
+        // Function to show selected day
+        function showDay(dayName) {
+            const now = new Date();
+            const brasiliaOffset = -3 * 60;
+            let brasiliaTime = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + (brasiliaOffset * 60000));
+            
+            // Calculate the target day
+            const currentDayIndex = brasiliaTime.getDay();
+            const targetDayIndex = daysOfWeek.indexOf(dayName);
+            let dayDiff = targetDayIndex - currentDayIndex;
+            
+            // If the target day is before current day in week, add 7 days
+            if (dayDiff < 0) {
+                dayDiff += 7;
+            }
+            
+            // Create new date for the target day
+            brasiliaTime = new Date(brasiliaTime);
+            brasiliaTime.setDate(brasiliaTime.getDate() + dayDiff);
+            
+            // Update display
+            document.getElementById('current-day').textContent = dayName;
+            const dateStr = `${brasiliaTime.getDate()} de ${months[brasiliaTime.getMonth()]} de ${brasiliaTime.getFullYear()}`;
+            document.getElementById('current-date').textContent = dateStr;
+            
+            updateScheduleDisplay(dayName, brasiliaTime);
+            checkCurrentStatus(brasiliaTime, dayName);
+        }
+// Update the schedule display for the current day
         function updateScheduleDisplay(currentDay, now) {
-            const scheduleContainer = document.querySelector('.grid.grid-cols-1.divide-y');
+const scheduleContainer = document.querySelector('.grid.grid-cols-1.divide-y');
             scheduleContainer.innerHTML = '';
             
             // Filter schedule items for today
